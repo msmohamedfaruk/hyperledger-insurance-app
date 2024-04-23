@@ -2,7 +2,7 @@
 set -eu
 
 dockerFabricPull() {
-  local FABRIC_TAG=$1
+  local FABRIC_TAG='1.4'
   for IMAGES in peer orderer ccenv; do
       echo "==> FABRIC IMAGE: $IMAGES"
       echo
@@ -12,7 +12,7 @@ dockerFabricPull() {
 }
 
 dockerCaPull() {
-      local CA_TAG=$1
+      local CA_TAG='1.4'
       echo "==> FABRIC CA IMAGE"
       echo
       docker pull hyperledger/fabric-ca:$CA_TAG
@@ -38,8 +38,8 @@ else
 fi
 
 if [ $DOWNLOAD ]; then
-    : ${CA_TAG:="latest"}
-    : ${FABRIC_TAG:="latest"}
+    : ${CA_TAG:="1.4"}
+    : ${FABRIC_TAG:="1.4"}
 
     echo "===> Pulling fabric Images"
     dockerFabricPull ${FABRIC_TAG}
@@ -61,7 +61,7 @@ if [ $BUILD ];
     docker build -t police-peer:latest policePeer/
     docker build -t shop-peer:latest shopPeer/
     docker build -t repairshop-peer:latest repairShopPeer/
-    docker build -t web:latest web/
+    # docker build -t web:latest web/
     docker build -t insurance-ca:latest insuranceCA/
     docker build -t police-ca:latest policeCA/
     docker build -t shop-ca:latest shopCA/
